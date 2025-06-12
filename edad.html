@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Actividad 3 - Edad y Encriptador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .resultado {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #333;
+    }
+    body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #c3ecf7, #f5f7fa);
+  padding: 2rem;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out;
+}
+
+.container:hover {
+  transform: scale(1.01);
+}
+
+h2 {
+  color: #333;
+  border-left: 5px solid #007bff;
+  padding-left: 0.5rem;
+  margin-top: 2rem;
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  color: #555;
+  font-weight: 500;
+}
+
+input, textarea {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  border: none;
+  margin-top: 1.5rem;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #4a0dbf, #1b57c0);
+}
+
+.resultado {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #222;
+  background-color: #e9f5ff;
+  padding: 0.8rem;
+  border-left: 4px solid #007bff;
+  border-radius: 6px;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🧮 Cálculo de Edad</h2>
+    <label for="fecha-nacimiento">Fecha de nacimiento:</label>
+    <input type="date" id="fecha-nacimiento" />
+    <button onclick="calcularEdad()">Calcular Edad</button>
+    <p class="resultado" id="resultado-edad"></p>
+
+    <h2>🔐 Encriptador de Texto</h2>
+    <label for="texto">Ingresa texto a encriptar:</label>
+    <textarea id="texto" rows="4" placeholder="Escribe algo..."></textarea>
+    <button onclick="encriptarTexto()">Encriptar</button>
+    <label for="resultado">Texto encriptado:</label>
+    <textarea id="resultado" rows="4" readonly></textarea>
+  </div>
+
+  <script>
+    function calcularEdad() {
+      const fechaNacimiento = new Date(document.getElementById('fecha-nacimiento').value);
+      const hoy = new Date();
+
+      if (isNaN(fechaNacimiento)) {
+        document.getElementById('resultado-edad').innerText = 'Por favor ingresa una fecha válida.';
+        return;
+      }
+
+      let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+      const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+
+      if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+      }
+
+      document.getElementById('resultado-edad').innerText = `Tienes ${edad} años.`;
+    }
+
+    function encriptarTexto() {
+      const texto = document.getElementById('texto').value;
+      let resultado = '';
+
+      for (let i = 0; i < texto.length; i++) {
+        let char = texto.charCodeAt(i);
+        resultado += String.fromCharCode(char + 3); // Cifrado César
+      }
+
+      document.getElementById('resultado').value = resultado;
+    }
+  </script>
+</body>
+</html>

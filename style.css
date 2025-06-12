@@ -1,0 +1,149 @@
+body {
+  padding-top: 20px;
+}
+
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+  margin-top: 40px;
+  text-align: center;
+}
+ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: bisque;
+  font-family: Arial, sans-serif;
+}
+
+.div-titulo {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-titulo h1 {
+  font-weight: 300;
+}
+
+.contenedor {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* FORMULARIO */
+.div-formulario {
+  width: 30%;
+  min-width: 300px;
+  background-color: rgb(135, 132, 132);
+  margin: 15px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.3);
+  color: whitesmoke;
+}
+
+.div-formulario h2 {
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.div-formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.div-formulario input,
+.div-formulario button {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.div-formulario input {
+  background-color: #f0f0f0;
+}
+
+.div-formulario button {
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.div-formulario button:hover {
+  background-color: #218838;
+}
+
+/* LISTADO DE USUARIOS */
+.div-listado {
+  width: 55%;
+  min-width: 300px;
+  background-color: rgb(135, 132, 132);
+  margin: 15px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 10px 10px rgba(0, 0, 0, 0.3);
+  color: whitesmoke;
+}
+
+.div-listado h2 {
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.div-usuarios {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.usuario-item {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usuario-info {
+  flex-grow: 1;
+}
+
+.usuario-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-editar {
+  background-color: green;
+}
+
+.btn-eliminar {
+  background-color: red;
+}
+
+

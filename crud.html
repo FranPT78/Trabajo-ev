@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Local JS - Usuarios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="div-titulo">
+        <h1>CRUD Local JavaScript</h1>
+    </div>
+    
+    <div class="contenedor">
+
+        <div class="div-formulario">
+            <h2>Formulario</h2>
+
+            <form action="#" id="formulario">
+                <input type="text" id="nombre" placeholder="Ingresa el nombre" required>
+                <input type="email" id="correo" placeholder="Ingresa el correo" required>
+                <input type="password" id="contrasena" placeholder="Ingresa la contraseña" required>
+                <input type="text" id="rut" placeholder="Ingresa el RUT" required>
+                <button type="submit" id="btnAgregar">Agregar</button>
+            </form>
+        </div>
+
+        <div class="div-listado">
+            <h2>Usuarios Registrados</h2>
+            <div class="div-empleados" id="listaUsuarios"></div>
+        </div>
+
+    </div>
+
+    <script>
+        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        let modoEdicion = false;
+        let rutEditando = null;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            mostrarUsuarios();
+
+            document.getElementById("formulario").addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const nombre = document.getElementById("nombre").value;
+                const correo = document.getElementById("correo").value;
+                const contrasena = document.getElementById("contrasena").value;
+                const rut = document.getElementById("rut").value;
+
+                if (modoEdicion) {
+                    usuarios = usuarios.map(usuario => {
+                        if (usuario.rut === rutEditando) {
+                            return { nombre, correo, contrasena, rut };
+                        }
+                        return usuario;
+                    });
+                    modoEdicion = false;
+                    rutEditando = null;
+                    document.getElementById("btnAgregar").textContent = "Agregar";
+                } else {
+                    const usuario = { nombre, correo, contrasena, rut };
+                    usuarios.push(usuario);
+                }
+
+                localStorage.setItem("usuarios", JSON.stringify(usuarios));
+                document.getElementById("formulario").reset();
+                refrescarLista();
+            });
+        });
+
+        function mostrarUsuarios() {
+            usuarios.forEach(usuario => agregarUsuarioLista(usuario));
+        }
+
+        function agregarUsuarioLista(usuario) {
+            const div = document.createElement("p");
+            div.textContent = `${usuario.nombre} - ${usuario.correo} - ${usuario.rut} - `;
+
+            const btnEditar = document.createElement("button");
+            btnEditar.textContent = "Editar";
+            btnEditar.classList.add("btn", "btn-editar");
+            btnEditar.onclick = () => cargarUsuarioEnFormulario(usuario);
+
+            const btnEliminar = document.createElement("button");
+            btnEliminar.textContent = "Eliminar";
+            btnEliminar.classList.add("btn", "btn-eliminar");
+            btnEliminar.onclick = () => {
+                eliminarUsuario(usuario.rut);
+                div.remove();
+            };
+
+            div.appendChild(btnEditar);
+            div.appendChild(btnEliminar);
+            document.getElementById("listaUsuarios").appendChild(div);
+
+            const hr = document.createElement("hr");
+            document.getElementById("listaUsuarios").appendChild(hr);
+        }
+
+        function eliminarUsuario(rut) {
+            usuarios = usuarios.filter(usuario => usuario.rut !== rut);
+            localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        }
+
+        function cargarUsuarioEnFormulario(usuario) {
+            document.getElementById("nombre").value = usuario.nombre;
+            document.getElementById("correo").value = usuario.correo;
+            document.getElementById("contrasena").value = usuario.contrasena;
+            document.getElementById("rut").value = usuario.rut;
+
+            rutEditando = usuario.rut;
+            modoEdicion = true;
+            document.getElementById("btnAgregar").textContent = "Actualizar";
+        }
+
+        function refrescarLista() {
+            const lista = document.getElementById("listaUsuarios");
+            lista.innerHTML = "";
+            mostrarUsuarios();
+        }
+        function checkRut(rut) {
+  let valor = rut.value.replace(/\./g, '').replace('-', '');
+  let cuerpo = valor.slice(0, -1);
+  let dv = valor.slice(-1).toUpperCase();
+
+  rut.value = cuerpo + '-' + dv;
+
+  if (cuerpo.length < 7) {
+    rut.setCustomValidity("RUT Incompleto");
+    return false;
+  }
+
+  let suma = 0;
+  let multiplo = 2;
+
+  for (let i = 1; i <= cuerpo.length; i++) {
+    let index = multiplo * parseInt(cuerpo.charAt(cuerpo.length - i));
+    suma += index;
+    multiplo = multiplo < 7 ? multiplo + 1 : 2;
+  }
+
+  let dvEsperado = 11 - (suma % 11);
+  dvEsperado = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+  if (dv !== dvEsperado) {
+    rut.setCustomValidity("RUT inválido");
+    return false;
+  }
+
+  rut.setCustomValidity('');
+}
+    </script>
+</body>
+</html>
