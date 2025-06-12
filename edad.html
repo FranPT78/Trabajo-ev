@@ -128,14 +128,14 @@ button:hover {
 </head>
 <body>
   <div class="container">
-    <h2>🧮 Cálculo de Edad</h2>
+    <h2> Cálculo de Edad</h2>
     <label for="fecha-nacimiento">Fecha de nacimiento:</label>
     <input type="date" id="fecha-nacimiento" />
-    <button onclick="calcularEdad()">Calcular Edad</button>
+    <button onclick="calcularEdad()">Calcular edad</button>
     <p class="resultado" id="resultado-edad"></p>
 
-    <h2>🔐 Encriptador de Texto</h2>
-    <label for="texto">Ingresa texto a encriptar:</label>
+    <h2> Encriptador de Texto</h2>
+    <label for="texto">texto a encriptar:</label>
     <textarea id="texto" rows="4" placeholder="Escribe algo..."></textarea>
     <button onclick="encriptarTexto()">Encriptar</button>
     <label for="resultado">Texto encriptado:</label>
@@ -168,7 +168,7 @@ button:hover {
 
       for (let i = 0; i < texto.length; i++) {
         let char = texto.charCodeAt(i);
-        resultado += String.fromCharCode(char + 3); // Cifrado César
+        resultado += String.fromCharCode(char + 3); 
       }
 
       document.getElementById('resultado').value = resultado;
